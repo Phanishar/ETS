@@ -1,4 +1,4 @@
-package ETS1;
+package com.cloudzen.ets.stepdef;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -25,8 +25,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import Dataprovider.ConfigFileReader;
-import Dataprovider.DriverManager;
+import com.cloudzen.ets.utils.ConfigFileReader;
+import com.cloudzen.ets.utils.DriverManager;
+
 import cucumber.api.DataTable;
 import cucumber.api.PendingException;
 import cucumber.api.java.After;

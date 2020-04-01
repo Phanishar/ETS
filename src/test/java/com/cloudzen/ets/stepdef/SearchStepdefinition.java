@@ -1,4 +1,4 @@
-package ETS1;
+package com.cloudzen.ets.stepdef;
 import java.sql.Driver;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,8 +21,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import Dataprovider.ConfigFileReader;
-import Dataprovider.DriverManager;
+import com.cloudzen.ets.utils.ConfigFileReader;
+import com.cloudzen.ets.utils.DriverManager;
+
 import cucumber.api.DataTable;
 import cucumber.api.PendingException;
 import cucumber.api.java.After;
@@ -52,9 +53,11 @@ public class SearchStepdefinition {
 public static void user_clicks_Search_button(String arg1){
 	DriverManager.getDriver().findElement(By.xpath("//*[text()='search']/following::input[@class='mat-autocomplete-trigger mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-valid ng-dirty ng-touched']")).click();
 }
-@And("^user enter with \"(.*?)\" in Search button$")
-public static void user_enter_with_Date_in_Search_button(String arg1){
-	DriverManager.getDriver().findElement(By.xpath("//*[text()='search']/following::input[@class='mat-autocomplete-trigger mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-valid ng-dirty ng-touched']")).sendKeys("2020-01-03-0001");
+
+@And("^user enter \"(.*?)\" in \"(.*?)\" textbox$")
+//@And("^user enter with \"(.*?)\" in Search button$")
+public static void user_enter_with_Date_in_Search_button(String value,String field){
+	DriverManager.getDriver().findElement(By.xpath("//*[text()='search']/following::input[@class='mat-autocomplete-trigger mat-input-element mat-form-field-autofill-control cdk-text-field-autofill-monitored ng-valid ng-dirty ng-touched']")).sendKeys(value);
 	Search.click();
 	
 }

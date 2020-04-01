@@ -1,4 +1,4 @@
-package Dataprovider;
+package com.cloudzen.ets.utils;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

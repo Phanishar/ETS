@@ -1,4 +1,4 @@
-package ETS1;
+package com.cloudzen.ets.stepdef;
 
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -25,8 +25,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import Dataprovider.ConfigFileReader;
-import Dataprovider.DriverManager;
+import com.cloudzen.ets.utils.ConfigFileReader;
+import com.cloudzen.ets.utils.DriverManager;
+
 import cucumber.api.DataTable;
 import cucumber.api.PendingException;
 import cucumber.api.java.After;
@@ -46,7 +47,7 @@ public class ETSStepdefinition {
 	DriverManager dm = new DriverManager();
 	ConfigFileReader cfgreader = new ConfigFileReader();
 
-	// @Before
+	@Before
 	public void launchURL() {
 		System.setProperty("webdriver.chrome.DriverManager.getDriver()", cfgreader.getDriverPathforChrome());
 		dm.ChromeDriver();
@@ -78,13 +79,6 @@ public class ETSStepdefinition {
 		DriverManager.getDriver().close();
 		DriverManager.getDriver().quit();
 		System.out.println("DriverManager.getDriver() closed");
-	}
-
-	@Given("^User launch the URL$")
-	public void gotoURL() {
-		launchURL();
-		System.out.println(DriverManager.getDriver().getCurrentUrl());
-
 	}
 
 	@When("^I enter username as \"(.*?)\"$")
@@ -629,86 +623,4 @@ public class ETSStepdefinition {
 	 * "Report Config Path not specified in the Configuration.properties file for the Key:reportConfigPath"
 	 * ); }
 	 */
-
-	@When("^User enters Credentials to LogIn$")
-	public void user_enters_Credentials_to_LogIn(DataTable usercredentials) throws Throwable {
-		// Write code here that turns the phrase above into concrete actions
-		// For automatic transformation, change DataTable to one of
-		// List<YourType>, List<List<E>>, List<Map<K,V>> or Map<K,V>.
-		// E,K,V must be a scalar (String, Integer, Date, enum etc)
-		// List<List<String>> data = usercredentials.raw();
-		if (cfgreader.getEnvironment().equalsIgnoreCase("Dev")) {
-			List<Map<String, String>> list = usercredentials.asMaps(String.class, String.class);
-			for (int i = 0; i < list.size(); i++) {
-				// for (Map<String, String> data :
-				// usercredentials.asMaps(String.class, String.class)) {
-				DriverManager.getDriver().findElement(By.xpath("//input[@formcontrolname='userName']")).clear();
-				DriverManager.getDriver().findElement(By.xpath("//input[@formcontrolname='userName']"))
-						.sendKeys(list.get(i).get("Username"));
-				DriverManager.getDriver().findElement(By.xpath("//input[@formcontrolname='password']")).clear();
-				DriverManager.getDriver().findElement(By.xpath("//input[@formcontrolname='password']"))
-						.sendKeys(list.get(i).get("Password"));
-			
-				DriverManager.getDriver().findElement(By.xpath("//span[text()='LOGIN']")).click();
-
-				Thread.sleep(30000);
-				try{
-				String Title = DriverManager.getDriver().getTitle(); //trade browser
-				if(Title.equalsIgnoreCase("Trade Browser")){
-					System.out.println("login success");
-					 
-
-				}
-				
-				else if(DriverManager.getDriver().getTitle().contains("Login")){
-					WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), 30);
-                wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//span[contains(text(),'login')]")));
-                WebElement errormsg = DriverManager.getDriver().findElement(By.xpath("//span[contains(text(),'This is your login attempt')]"));
-                if(errormsg.isDisplayed()){
-                	System.out.println("dshgfj");
-                }
-                
-				}
-				else if (DriverManager.getDriver().findElement(By
-						.xpath("///div[@class='ets-login--error']/span"))
-					.isDisplayed() ){
-						
-
-					System.out.println(" login failed ");
-					
-				} 
-				else{
-					System.out.println("User is locked ");
-					
-				}}
-				catch (Exception e) {
-					// TODO: handle exception
-					WebDriverWait wait = new WebDriverWait(DriverManager.getDriver(), 30);
-	                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[contains(text(),'login')]")));
-	              WebElement errormessage =  DriverManager.getDriver().findElement(By
-							.xpath("//div[@class='ets-login--error']/span"));
-						
-					System.out.println("login failed " +errormessage.getText());
-				}
-				
-			}
-			
-		} else if (cfgreader.getEnvironment().equalsIgnoreCase("Test")) {
-			List<Map<String, String>> list = usercredentials.asMaps(String.class, String.class);
-			for (int i = 0; i < list.size(); i++) {
-				// for (Map<String, String> data :
-				// usercredentials.asMaps(String.class, String.class)) {
-				DriverManager.getDriver().findElement(By.id("userNameInput")).clear();
-				DriverManager.getDriver().findElement(By.id("userNameInput")).sendKeys(list.get(i).get("Username"));
-				DriverManager.getDriver().findElement(By.id("passwordInput")).clear();
-				DriverManager.getDriver().findElement(By.id("passwordInput")).sendKeys(list.get(i).get("Password"));
-				;
-				DriverManager.getDriver().findElement(By.xpath("//span[text()='Sign in']")).click();
-
-				Thread.sleep(5000);
-
-			}
-		}
-
-}
 	}
