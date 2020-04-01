@@ -73,8 +73,8 @@ public class ETSStepdefinition {
 		System.out.println(DriverManager.getDriver().getTitle());
 	}
 
-	// @After
-	@When("^Close the browser$")
+	@After
+	//@When("^Close the browser$")
 	public void close() {
 		DriverManager.getDriver().close();
 		DriverManager.getDriver().quit();

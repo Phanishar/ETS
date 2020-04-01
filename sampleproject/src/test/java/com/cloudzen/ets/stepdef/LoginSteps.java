@@ -20,12 +20,14 @@ public class LoginSteps {
 	private static final WebElement fileUploaded = null;
 	DriverManager dm = new DriverManager();
 	ConfigFileReader cfgreader = new ConfigFileReader();
-	String currentUser = null;
+	String currentUser = "";
 
 	@Given("^User enters Credentials to LogIn$")
 	public void user_enters_Credentials_to_LogIn(DataTable usercredentials) throws Throwable {
 		List<Map<String, String>> list = usercredentials.asMaps(String.class, String.class);
-		if(currentUser.equals(null)){
+		if(currentUser.equals("")){
+			System.out.println(list.get(0).get("Username"));
+			System.out.println(list.get(0).get("Password"));
 			currentUser = list.get(0).get("Username");
 			this.loginToApp(list.get(0).get("Username"), list.get(0).get("Password"));
 		}else if (!currentUser.equalsIgnoreCase(list.get(0).get("Username"))) {
@@ -81,7 +83,9 @@ public class LoginSteps {
 	}
 	
 	public void logout(){
-		//Click on user icon
-		//Click on Sign out
+	
+		WebElement DropDownicon = DriverManager.getDriver().findElement(By.xpath("//div[@class='ets-shell--toolbar-logo']//following::mat-icon[@class='ets-shell--toolbar-avatar mat-icon notranslate material-icons mat-icon-no-color']"));
+		DropDownicon.click();
+		
 	}
 }

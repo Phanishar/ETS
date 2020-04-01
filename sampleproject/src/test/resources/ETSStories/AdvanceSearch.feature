@@ -33,7 +33,7 @@ Feature: To Validate the Search option in Advance screen
     And user selects the "Advance" option
     Then user validate new pop window "Untitled/Draft" title is displayed
     Then user clicks on 'Product' DropDown under "KeyAttributes"
-    Then user select 'ST-FIX' from 'Product' dropdown under "KeyAttributes"
+   # Then user select 'ST-FIX' from 'Product' dropdown under "KeyAttributes"
     Then user select "Member" option
     Then user select 'BANK OF NY'from 'Member' dropdown under "KeyAttributes"
     When user right click under "TradingEvents" section
@@ -55,7 +55,7 @@ Feature: To Validate the Search option in Advance screen
     #And user verify the audit status as "V4"
     Then user click "chat" button
     And user enters some "text" words below "100"
-    And user click "Attachement" option
+   # And user click "Attachement" option
     And user click "Send" options
     And user verify "notifications" in the above chatbox
     And user click "chat" button to close window

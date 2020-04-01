@@ -16,9 +16,9 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 
-@CucumberOptions(features = "src//test//resources//ETSStories//AdvanceSearch.feature", glue = {
+@CucumberOptions(features = "src/test/resources/ETSStories/login.feature", glue = {
 		"com.cloudzen.ets.stepdef" }, plugin = {
-				"com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/report.html" }, monochrome = true, tags = "@tc-03")
+				"com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/report.html" }, monochrome = true, tags = "@tc-01")
 
 public class Runner {
 	static ConfigFileReader cfr = new ConfigFileReader();
